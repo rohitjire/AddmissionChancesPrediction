@@ -1,17 +1,20 @@
 # importing the necessary dependencies
 from flask import Flask, render_template, request
+from flask_cors import cross_origin
 import pickle
 
-app = Flask(__name__)  # initializing a flask app
+application = Flask(__name__)  # initializing a flask app
+app = application
 
 
-# app=application
 @app.route('/', methods=['GET'])  # route to display the home page
+@cross_origin()
 def homePage():
     return render_template("index.html")
 
 
 @app.route('/predict', methods=['POST', 'GET'])  # route to show the predictions in a web UI
+@cross_origin()
 def index():
     if request.method == 'POST':
         try:
@@ -44,4 +47,4 @@ def index():
 
 if __name__ == "__main__":
     # app.run(host='127.0.0.1', port=8001, debug=True)
-    app.run(debug=True)  # running the app
+    application.run(debug=True)  # running the app
